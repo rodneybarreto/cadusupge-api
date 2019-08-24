@@ -24,13 +24,13 @@ public class UsuarioRes {
 		nome = usuario.getNome();
 		
 		CPFFormatter cpfFormatter = new CPFFormatter();
-		cpf = (isEmpty(usuario.getCpf()) ? "" : cpfFormatter.format(usuario.getCpf()));
+		cpf = isEmpty(usuario.getCpf()) ? "" : cpfFormatter.format(usuario.getCpf());
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		dataNascimento = usuario.getDataNascimento().format(dataFormatter);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		dataNascimento = usuario.getDataNascimento().format(dateFormatter);
 		
 		genero = usuario.getGenero().toString();
-		funcao = usuario.getFuncao().getNome();
+		funcao = isEmpty(usuario.getFuncao()) ? "" : usuario.getFuncao().getNome();
 	}
 	
 	public String getId() {
