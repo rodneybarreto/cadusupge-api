@@ -1,6 +1,7 @@
 package br.dev.rodneybarreto.cadusupgeapi.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public UsuarioRes buscaPorCpf(String cpf) {
-		Usuario usuario = repository.findByCpf(cpf);
-		return new UsuarioRes(usuario);
+		Optional<Usuario> usuario = repository.findByCpf(cpf);
+		if (usuario.isPresent()) {
+			return new UsuarioRes(usuario.get());
+		}
+		return null;
+	}
+
+	@Override
+	public UsuarioRes buscaPorId(Integer id) {
+		Optional<Usuario> usuario = repository.findById(id);
+		if (usuario.isPresent()) {
+			return new UsuarioRes(usuario.get());
+		}
+		return null;
 	}
 
 }

@@ -9,5 +9,7 @@ public interface UsuarioService {
 	List<UsuarioRes> listaTodos();
 	
 	UsuarioRes buscaPorCpf(String cpf);
+	
+	UsuarioRes buscaPorId(Integer id);
 
 }
