@@ -74,4 +74,12 @@ public class Usuario implements Serializable {
 		this.genero = genero;
 	}
 
+	public Funcao getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Funcao funcao) {
+		this.funcao = funcao;
+	}
+
 }
