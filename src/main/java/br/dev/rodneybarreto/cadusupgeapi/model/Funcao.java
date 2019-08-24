@@ -22,6 +22,13 @@ public class Funcao implements Serializable {
 	
 	@OneToMany(mappedBy="funcao")
 	private List<Papel> papeis;
+	
+	public Funcao() {
+	}
+
+	public Funcao(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

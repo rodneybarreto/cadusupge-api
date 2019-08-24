@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public Usuario adiciona(UsuarioReq usuarioReq) {
 		
@@ -70,4 +73,39 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
+	@Transactional
+	@Override
+	public Usuario edita(Integer id, UsuarioReq usuarioReq) {
+		
+		Optional<Usuario> opt = usuarioRepository.findById(id);
+		if (opt.isPresent()) {
+		
+			Usuario usuario = opt.get();
+			usuario.setNome(usuarioReq.getNome());
+			usuario.setCpf(usuarioReq.getCpf());
+
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate dataNascimento = LocalDate.parse(usuarioReq.getDataNascimento(), dateFormatter);
+			usuario.setDataNascimento(dataNascimento);
+			
+			usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
+			usuario.setFuncao(new Funcao(Integer.parseInt(usuarioReq.getFuncaoId())));
+			
+			return usuario;
+		}
+		return null;
+	}
+
+	@Transactional
+	@Override
+	public boolean remove(Integer id) {
+		
+		Optional<Usuario> opt = usuarioRepository.findById(id);
+		if (opt.isPresent()) {
+			usuarioRepository.delete(opt.get());
+			return true;
+		}
+		return false;
+	}
+	
 }

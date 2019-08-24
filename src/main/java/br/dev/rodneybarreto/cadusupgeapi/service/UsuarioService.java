@@ -15,5 +15,9 @@ public interface UsuarioService {
 	UsuarioRes buscaPorId(Integer id);
 	
 	Usuario adiciona(UsuarioReq usuarioReq);
+	
+	Usuario edita(Integer id, UsuarioReq usuarioReq);
+	
+	boolean remove(Integer id);
 
 }
