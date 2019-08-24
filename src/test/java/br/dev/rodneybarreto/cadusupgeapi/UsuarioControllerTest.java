@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -66,9 +66,7 @@ public class UsuarioControllerTest {
 		u2.setGenero(Genero.FEMININO.toString());
 		u2.setFuncao("USUARIO_COMUM");
 		
-		usuarios = new ArrayList<>();
-		usuarios.add(u1);
-		usuarios.add(u2);
+		usuarios = Arrays.asList(u1, u2);
 	}
 	
 	@Test
@@ -84,7 +82,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	public void deveRetornarUmUsuarioPorCpf() throws Exception {
+	public void deveBuscaOUsuarioPorSeuCpf() throws Exception {
 		
 		when(service.buscaPorCpf(any(String.class))).thenReturn(usuario);
 		
