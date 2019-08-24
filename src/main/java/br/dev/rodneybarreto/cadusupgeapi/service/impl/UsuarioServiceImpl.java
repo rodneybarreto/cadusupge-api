@@ -23,4 +23,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarios.stream().map(UsuarioRes::new).collect(Collectors.toList());
 	}
 
+	@Override
+	public UsuarioRes buscaPorCpf(String cpf) {
+		Usuario usuario = repository.findByCpf(cpf);
+		return new UsuarioRes(usuario);
+	}
+
 }

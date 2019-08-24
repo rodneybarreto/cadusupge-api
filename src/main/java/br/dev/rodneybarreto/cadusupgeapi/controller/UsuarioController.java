@@ -1,5 +1,7 @@
 package br.dev.rodneybarreto.cadusupgeapi.controller;
 
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
@@ -20,8 +23,22 @@ public class UsuarioController {
 	private UsuarioService service;
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<UsuarioRes>> listaTodos() {
-		return ResponseEntity.ok(service.listaTodos());
+	public ResponseEntity<?> busca(@RequestParam(required=false) String cpf) {
+		
+		if (!isEmpty(cpf)) {
+			UsuarioRes usuario = service.buscaPorCpf(cpf);
+
+			if (!isEmpty(usuario)) {
+				return ResponseEntity.ok(usuario);
+			}
+		}
+		
+		List<UsuarioRes> usuarios = service.listaTodos();
+		if (!isEmpty(usuarios)) {
+			return ResponseEntity.ok(usuarios);
+		}
+
+		return ResponseEntity.noContent().build();
 	}
 
 }

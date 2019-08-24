@@ -7,5 +7,7 @@ import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
 public interface UsuarioService {
 	
 	List<UsuarioRes> listaTodos();
+	
+	UsuarioRes buscaPorCpf(String cpf);
 
 }
