@@ -37,19 +37,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public UsuarioRes buscaPorCpf(String cpf) {
 		Optional<Usuario> usuario = usuarioRepository.findByCpf(cpf);
-		if (usuario.isPresent()) {
-			return new UsuarioRes(usuario.get());
-		}
-		return null;
+		return (usuario.isPresent()) ? new UsuarioRes(usuario.get()) : null;
 	}
 
 	@Override
 	public UsuarioRes buscaPorId(Integer id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		if (usuario.isPresent()) {
-			return new UsuarioRes(usuario.get());
-		}
-		return null;
+		return (usuario.isPresent()) ? new UsuarioRes(usuario.get()) : null;
 	}
 
 	@Transactional
@@ -91,9 +85,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public boolean remove(Integer id) {
 		
-		Optional<Usuario> opt = usuarioRepository.findById(id);
-		if (opt.isPresent()) {
-			usuarioRepository.delete(opt.get());
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		if (usuario.isPresent()) {
+			usuarioRepository.delete(usuario.get());
 			return true;
 		}
 		return false;

@@ -3,6 +3,7 @@ package br.dev.rodneybarreto.cadusupgeapi.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,6 +25,7 @@ public class Usuario implements Serializable {
 	private String nome;
 	
 	@Size(max=11)
+	@Column(unique=true)
 	private String cpf;
 	
 	private LocalDate dataNascimento;
