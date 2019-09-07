@@ -34,7 +34,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public List<UsuarioRes> listaTodos() {
+		logger.info("Listando todos os uauários...");
 		List<Usuario> usuarios = usuarioRepository.findAll();
+		return usuarios.stream().map(UsuarioRes::new).collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<UsuarioRes> listaTodos(String nome) {
+		logger.info("Listando todos os uauários por nome: {}", nome);
+		List<Usuario> usuarios = (List<Usuario>) usuarioRepository.listaTodosPorNome(nome);
 		return usuarios.stream().map(UsuarioRes::new).collect(Collectors.toList());
 	}
 

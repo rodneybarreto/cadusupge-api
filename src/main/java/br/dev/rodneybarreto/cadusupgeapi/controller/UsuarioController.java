@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,9 +36,15 @@ public class UsuarioController {
 	private UsuarioService service;
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<UsuarioRes>> listaTodos() {
-
-		List<UsuarioRes> usuarios = service.listaTodos();
+	public ResponseEntity<List<UsuarioRes>> listaTodos(@RequestParam(required=false) String nome) {
+		List<UsuarioRes> usuarios = null;
+		
+		if (!isEmpty(nome)) {
+			usuarios = service.listaTodos(nome);
+		} else {
+			usuarios = service.listaTodos();
+		}
+		
 		if (!isEmpty(usuarios)) {
 			return ResponseEntity.ok(usuarios);
 		}
