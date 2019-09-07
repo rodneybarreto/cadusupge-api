@@ -82,7 +82,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	public void deveBuscaOUsuarioPorSeuCpf() throws Exception {
+	public void deveBuscarOUsuarioPorSeuCpf() throws Exception {
 		
 		when(service.buscaPorCpf(any(String.class))).thenReturn(usuario);
 		

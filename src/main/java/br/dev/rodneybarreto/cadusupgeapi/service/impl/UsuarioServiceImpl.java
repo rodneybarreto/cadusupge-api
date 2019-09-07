@@ -1,7 +1,5 @@
 package br.dev.rodneybarreto.cadusupgeapi.service.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +17,7 @@ import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.FuncaoRepository;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
+import br.dev.rodneybarreto.cadusupgeapi.util.StringConverter;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -62,11 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioReq.getNome());
 		usuario.setCpf(usuarioReq.getCpf());
-
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate dataNascimento = LocalDate.parse(usuarioReq.getDataNascimento(), dateFormatter);
-		usuario.setDataNascimento(dataNascimento);
-		
+		usuario.setDataNascimento(StringConverter.toDate(usuarioReq.getDataNascimento()));
 		usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
 		usuario.setFuncao((funcao.isPresent()) ? funcao.get() : null);
 		
@@ -83,11 +78,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			Usuario usuario = opt.get();
 			usuario.setNome(usuarioReq.getNome());
 			usuario.setCpf(usuarioReq.getCpf());
-
-			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			LocalDate dataNascimento = LocalDate.parse(usuarioReq.getDataNascimento(), dateFormatter);
-			usuario.setDataNascimento(dataNascimento);
-			
+			usuario.setDataNascimento(StringConverter.toDate(usuarioReq.getDataNascimento()));
 			usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
 			usuario.setFuncao(new Funcao(Integer.parseInt(usuarioReq.getFuncaoId())));
 			

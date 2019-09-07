@@ -6,8 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -23,6 +21,7 @@ import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.impl.UsuarioServiceImpl;
+import br.dev.rodneybarreto.cadusupgeapi.util.StringConverter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UsuarioServiceTest {
@@ -42,11 +41,7 @@ public class UsuarioServiceTest {
 		u.setId(1);
 		u.setNome("Cláudia Leite");
 		u.setCpf("11111111111");
-		
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate dataNascimento = LocalDate.parse("02/07/1999",dateFormatter);
-		u.setDataNascimento(dataNascimento);
-		
+		u.setDataNascimento(StringConverter.toDate("02/07/1999"));
 		u.setGenero(Genero.FEMININO);
 		
 		Funcao funcao = new Funcao(1);
@@ -56,7 +51,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void deveBuscaOUsuarioPorSeuCpf() {
+	public void deveBuscarOUsuarioPorSeuCpf() {
 		
 		String cpf = "11111111111";
 		
