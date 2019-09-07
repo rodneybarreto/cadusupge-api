@@ -86,7 +86,7 @@ public class UsuarioControllerTest {
 		
 		when(service.buscaPorCpf(any(String.class))).thenReturn(usuario);
 		
-		mvc.perform(get("/v1/usuarios?cpf=11111111111").accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+		mvc.perform(get("/v1/usuarios/cpf/11111111111").accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType("application/json; charset=UTF-8"))
 			.andExpect(jsonPath("$.nome").value("Cláudia Leite"))

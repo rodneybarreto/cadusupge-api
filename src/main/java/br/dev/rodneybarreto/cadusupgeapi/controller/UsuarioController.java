@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,29 +26,34 @@ import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders="*")
-@RequestMapping("/v1/usuarios")
+@RequestMapping(UsuarioController.RESOURCE)
 public class UsuarioController {
+	
+	protected static final String RESOURCE = "/v1/usuarios";
 	
 	@Autowired
 	private UsuarioService service;
 	
 	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> busca(@RequestParam(required=false) String cpf) {
+	public ResponseEntity<List<UsuarioRes>> listaTodos() {
 
-		if (!isEmpty(cpf)) {
-			UsuarioRes usuario = service.buscaPorCpf(cpf);
-
-			if (!isEmpty(usuario)) {
-				return ResponseEntity.ok(usuario);
-			}
-			return ResponseEntity.noContent().build();
-		}
-		
 		List<UsuarioRes> usuarios = service.listaTodos();
 		if (!isEmpty(usuarios)) {
 			return ResponseEntity.ok(usuarios);
 		}
+		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value="/cpf/{cpf}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<UsuarioRes> buscaPorCpf(@PathVariable String cpf) {
+		
+		UsuarioRes usuario = service.buscaPorCpf(cpf);
+		if (!isEmpty(usuario)) {
+			return ResponseEntity.ok(usuario);
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping(value="/{id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -59,6 +63,7 @@ public class UsuarioController {
 		if (!isEmpty(usuario)) {
 			return ResponseEntity.ok(usuario);
 		}
+		
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -67,7 +72,7 @@ public class UsuarioController {
 		
 		Usuario usuario = service.adiciona(usuarioReq);
 		if (!isEmpty(usuario)) {
-			URI uri = uriBuilder.path("/v1/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
+			URI uri = uriBuilder.path(RESOURCE +"/{id}").buildAndExpand(usuario.getId()).toUri();
 			return ResponseEntity.created(uri).build();
 		}
 		return ResponseEntity.notFound().build();

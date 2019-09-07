@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import br.dev.rodneybarreto.cadusupgeapi.util.StringConverter;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private FuncaoRepository funcaoRepository;
 	
@@ -36,12 +40,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public UsuarioRes buscaPorCpf(String cpf) {
+		logger.info("Buscando usuário CPF: {}", cpf);
 		Optional<Usuario> usuario = usuarioRepository.findByCpf(cpf);
 		return (usuario.isPresent()) ? new UsuarioRes(usuario.get()) : null;
 	}
 
 	@Override
 	public UsuarioRes buscaPorId(Integer id) {
+		logger.info("Buscando usuário ID: {}", id);
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		return (usuario.isPresent()) ? new UsuarioRes(usuario.get()) : null;
 	}
