@@ -16,12 +16,12 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
+import br.dev.rodneybarreto.cadusupgeapi.helper.DateHelper;
 import br.dev.rodneybarreto.cadusupgeapi.model.Funcao;
 import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.impl.UsuarioServiceImpl;
-import br.dev.rodneybarreto.cadusupgeapi.util.StringConverter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UsuarioServiceTest {
@@ -41,7 +41,7 @@ public class UsuarioServiceTest {
 		u.setId(1);
 		u.setNome("Cláudia Leite");
 		u.setCpf("11111111111");
-		u.setDataNascimento(StringConverter.toDate("02/07/1999"));
+		u.setDataNascimento(DateHelper.toDate("02/07/1999"));
 		u.setGenero(Genero.FEMININO);
 		
 		Funcao funcao = new Funcao(1);

@@ -1,11 +1,11 @@
-package br.dev.rodneybarreto.cadusupgeapi.util;
+package br.dev.rodneybarreto.cadusupgeapi.helper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class StringConverter {
+public class DateHelper {
 	
-	private StringConverter() {
+	private DateHelper() {
 	}
 	
 	public static LocalDate toDate(String dataStr) {

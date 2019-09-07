@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioReq;
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
+import br.dev.rodneybarreto.cadusupgeapi.helper.DateHelper;
 import br.dev.rodneybarreto.cadusupgeapi.model.Funcao;
 import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.FuncaoRepository;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
-import br.dev.rodneybarreto.cadusupgeapi.util.StringConverter;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -69,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioReq.getNome());
 		usuario.setCpf(usuarioReq.getCpf());
-		usuario.setDataNascimento(StringConverter.toDate(usuarioReq.getDataNascimento()));
+		usuario.setDataNascimento(DateHelper.toDate(usuarioReq.getDataNascimento()));
 		usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
 		usuario.setFuncao((funcao.isPresent()) ? funcao.get() : null);
 		
@@ -86,7 +86,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			Usuario usuario = opt.get();
 			usuario.setNome(usuarioReq.getNome());
 			usuario.setCpf(usuarioReq.getCpf());
-			usuario.setDataNascimento(StringConverter.toDate(usuarioReq.getDataNascimento()));
+			usuario.setDataNascimento(DateHelper.toDate(usuarioReq.getDataNascimento()));
 			usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
 			usuario.setFuncao(new Funcao(Integer.parseInt(usuarioReq.getFuncaoId())));
 			
