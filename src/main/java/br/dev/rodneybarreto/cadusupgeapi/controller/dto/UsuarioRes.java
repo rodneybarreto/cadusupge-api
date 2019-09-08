@@ -2,9 +2,8 @@ package br.dev.rodneybarreto.cadusupgeapi.controller.dto;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
-import java.time.format.DateTimeFormatter;
-
 import br.com.caelum.stella.format.CPFFormatter;
+import br.dev.rodneybarreto.cadusupgeapi.helper.DateHelper;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 
 public class UsuarioRes {
@@ -26,9 +25,7 @@ public class UsuarioRes {
 		CPFFormatter cpfFormatter = new CPFFormatter();
 		cpf = isEmpty(usuario.getCpf()) ? "" : cpfFormatter.format(usuario.getCpf());
 		
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		dataNascimento = usuario.getDataNascimento().format(dateFormatter);
-		
+		dataNascimento = DateHelper.toString(usuario.getDataNascimento());
 		genero = usuario.getGenero().toString();
 		funcao = isEmpty(usuario.getFuncao()) ? "" : usuario.getFuncao().getNome();
 	}
