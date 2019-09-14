@@ -6,6 +6,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,6 +68,7 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioRes> buscaPorId(@PathVariable Integer id) {
 	
 		UsuarioRes usuario = service.buscaPorId(id);
+		
 		if (!isEmpty(usuario)) {
 			return ResponseEntity.ok(usuario);
 		}
@@ -78,29 +80,35 @@ public class UsuarioController {
 	public ResponseEntity<?> adiciona(@RequestBody UsuarioReq usuarioReq, UriComponentsBuilder uriBuilder) {
 		
 		Usuario usuario = service.adiciona(usuarioReq);
+		
 		if (!isEmpty(usuario)) {
 			URI uri = uriBuilder.path(RESOURCE +"/{id}").buildAndExpand(usuario.getId()).toUri();
 			return ResponseEntity.created(uri).build();
 		}
-		return ResponseEntity.notFound().build();
+		
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PutMapping(value="/{id}", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> edita(@PathVariable Integer id, @RequestBody UsuarioReq usuarioReq) {
+	public ResponseEntity<?> atualiza(@PathVariable Integer id, @RequestBody UsuarioReq usuarioReq) {
+
+		Usuario usuario = service.atualiza(id, usuarioReq);
 		
-		Usuario usuario = service.edita(id, usuarioReq);
 		if (!isEmpty(usuario)) {
 			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.notFound().build();
+		
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<?> remove(@PathVariable Integer id) {
+		
 		if (service.remove(id)) {
 			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.notFound().build();
+		
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

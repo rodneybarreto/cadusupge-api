@@ -78,20 +78,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Transactional
 	@Override
-	public Usuario edita(Integer id, UsuarioReq usuarioReq) {
+	public Usuario atualiza(Integer id, UsuarioReq usuarioReq) {
 		
 		Optional<Usuario> opt = usuarioRepository.findById(id);
-		if (opt.isPresent()) {
 		
+		if (opt.isPresent()) {
 			Usuario usuario = opt.get();
 			usuario.setNome(usuarioReq.getNome());
 			usuario.setCpf(usuarioReq.getCpf());
 			usuario.setDataNascimento(DateHelper.toDate(usuarioReq.getDataNascimento()));
 			usuario.setGenero(Genero.valueOf(usuarioReq.getGenero()));
 			usuario.setFuncao(new Funcao(Integer.parseInt(usuarioReq.getFuncaoId())));
-			
 			return usuario;
 		}
+		
 		return null;
 	}
 
@@ -100,10 +100,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public boolean remove(Integer id) {
 		
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		
 		if (usuario.isPresent()) {
 			usuarioRepository.delete(usuario.get());
 			return true;
 		}
+		
 		return false;
 	}
 	

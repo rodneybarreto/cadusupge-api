@@ -14,7 +14,7 @@
 
   <groupId>br.dev.rodneybarreto</groupId>
   <artifactId>cadusupge-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <name>cadusupge-api</name>
   <description>API Rest para cadastro de usuários</description>
 
