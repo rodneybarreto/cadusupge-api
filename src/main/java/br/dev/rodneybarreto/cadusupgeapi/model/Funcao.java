@@ -45,5 +45,13 @@ public class Funcao implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
+	}
 	
 }
