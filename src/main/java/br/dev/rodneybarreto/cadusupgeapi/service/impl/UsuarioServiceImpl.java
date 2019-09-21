@@ -66,6 +66,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		Optional<Funcao> funcao = funcaoRepository.findById(Integer.parseInt(usuarioReq.getFuncaoId()));
 		
+		logger.info("Adicionando usuário nome: {}", usuarioReq.getNome());
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioReq.getNome());
 		usuario.setCpf(usuarioReq.getCpf());
@@ -83,6 +84,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Optional<Usuario> opt = usuarioRepository.findById(id);
 		
 		if (opt.isPresent()) {
+			logger.info("Atualizando usuário nome: {}", usuarioReq.getNome());
 			Usuario usuario = opt.get();
 			usuario.setNome(usuarioReq.getNome());
 			usuario.setCpf(usuarioReq.getCpf());
@@ -102,6 +104,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		
 		if (usuario.isPresent()) {
+			logger.info("Removendo usuário ID: {}", usuario.get().getId());
 			usuarioRepository.delete(usuario.get());
 			return true;
 		}

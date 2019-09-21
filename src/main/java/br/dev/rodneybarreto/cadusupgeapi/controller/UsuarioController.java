@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,28 +39,29 @@ public class UsuarioController {
 	public ResponseEntity<List<UsuarioRes>> listaTodos(@RequestParam(required=false) String nome) {
 		List<UsuarioRes> usuarios = null;
 		
-		if (!isEmpty(nome)) {
-			usuarios = service.listaTodos(nome);
-		} else {
+		if (isEmpty(nome)) {
 			usuarios = service.listaTodos();
+		} else {
+			usuarios = service.listaTodos(nome);
 		}
 		
-		if (!isEmpty(usuarios)) {
-			return ResponseEntity.ok(usuarios);
+		if (isEmpty(usuarios)) {
+			return ResponseEntity.noContent().build();
 		}
-		
-		return ResponseEntity.noContent().build();
+
+		return ResponseEntity.ok(usuarios);
 	}
 	
 	@GetMapping(value="/cpf/{cpf}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<UsuarioRes> buscaPorCpf(@PathVariable String cpf) {
 		
 		UsuarioRes usuario = service.buscaPorCpf(cpf);
-		if (!isEmpty(usuario)) {
-			return ResponseEntity.ok(usuario);
+
+		if (isEmpty(usuario)) {
+			return ResponseEntity.notFound().build();
 		}
-		
-		return ResponseEntity.notFound().build();
+
+		return ResponseEntity.ok(usuario);
 	}
 	
 	@GetMapping(value="/{id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -69,11 +69,11 @@ public class UsuarioController {
 	
 		UsuarioRes usuario = service.buscaPorId(id);
 		
-		if (!isEmpty(usuario)) {
-			return ResponseEntity.ok(usuario);
+		if (isEmpty(usuario)) {
+			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(usuario);
 	}
 	
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -81,12 +81,12 @@ public class UsuarioController {
 		
 		Usuario usuario = service.adiciona(usuarioReq);
 		
-		if (!isEmpty(usuario)) {
-			URI uri = uriBuilder.path(RESOURCE +"/{id}").buildAndExpand(usuario.getId()).toUri();
-			return ResponseEntity.created(uri).build();
+		if (isEmpty(usuario)) {
+			return ResponseEntity.notFound().build();
 		}
 		
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		URI uri = uriBuilder.path(RESOURCE +"/{id}").buildAndExpand(usuario.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value="/{id}", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -94,11 +94,11 @@ public class UsuarioController {
 
 		Usuario usuario = service.atualiza(id, usuarioReq);
 		
-		if (!isEmpty(usuario)) {
-			return ResponseEntity.noContent().build();
+		if (isEmpty(usuario)) {
+			return ResponseEntity.notFound().build();
 		}
 		
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping(value="/{id}")
@@ -108,7 +108,7 @@ public class UsuarioController {
 			return ResponseEntity.noContent().build();
 		}
 		
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return ResponseEntity.notFound().build();
 	}
 	
 }

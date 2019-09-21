@@ -29,11 +29,11 @@ public class FuncaoController {
 		
 		FuncaoRes funcaoRes = service.buscaPorId(id);
 		
-		if (!isEmpty(funcaoRes)) {
-			return ResponseEntity.ok(funcaoRes);
+		if (isEmpty(funcaoRes)) {
+			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(funcaoRes);
 	}
 
 }
