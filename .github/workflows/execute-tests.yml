@@ -13,6 +13,6 @@
           uses: actions/checkout@v2
 
         - name: Run maven commands
-          uses: GuillaumeFalourd/maven-cli-action@jdk8
+          uses: GuillaumeFalourd/maven-cli-jdks-action@main
           with:
             commands: 'clean verify'
