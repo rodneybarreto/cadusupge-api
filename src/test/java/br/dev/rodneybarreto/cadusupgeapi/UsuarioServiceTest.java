@@ -25,8 +25,8 @@ import br.dev.rodneybarreto.cadusupgeapi.service.impl.UsuarioServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UsuarioServiceTest {
-	
-	Optional<Usuario> usuario;
+
+	protected Optional<Usuario> usuario;
 	
 	@Mock
 	private UsuarioRepository repository;
@@ -36,7 +36,6 @@ public class UsuarioServiceTest {
 	
 	@Before
 	public void init() {
-		
 		Usuario u = new Usuario();
 		u.setId(1);
 		u.setNome("Cláudia Leite");
@@ -47,20 +46,31 @@ public class UsuarioServiceTest {
 		Funcao funcao = new Funcao(1);
 		u.setFuncao(funcao);
 		
-		usuario = Optional.of(u);
+		this.usuario = Optional.of(u);
 	}
 	
 	@Test
 	public void deveBuscarOUsuarioPorSeuCpf() {
-		
 		String cpf = "11111111111";
-		
+
 		when(repository.findByCpf(any(String.class))).thenReturn(usuario);
 		
 		UsuarioRes usuarioRetornado = service.buscaPorCpf(cpf);
 		
 		assertEquals("Cláudia Leite", usuarioRetornado.getNome());
 		verify(repository, times(1)).findByCpf(cpf);
+	}
+
+	@Test
+	public void deveBuscarOUsuarioPorId() {
+		Integer id = 1;
+
+		when(repository.findById(any(Integer.class))).thenReturn(usuario);
+
+		UsuarioRes usuarioRetornado = service.buscaPorId(id);
+
+		assertEquals("111.111.111-11", usuarioRetornado.getCpf());
+		verify(repository, times(1)).findById(id);
 	}
 
 }
