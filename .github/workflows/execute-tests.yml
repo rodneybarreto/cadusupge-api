@@ -1,0 +1,21 @@
+  name: Execute tests
+
+  on:
+    push:
+      branches: [ develop ]
+
+  jobs:
+    execute-tests:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Setup Maven
+          uses: aahmed-se/setup-maven@v3
+          with:
+            maven-version: 3.6.1
+
+        - name: Execute tests
+          run: mvn verify
