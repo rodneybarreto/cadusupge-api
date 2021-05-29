@@ -12,10 +12,7 @@
         - name: Checkout repository
           uses: actions/checkout@v2
 
-        - name: Setup Maven
-          uses: aahmed-se/setup-maven@v3
+        - name: Run maven commands
+          uses: GuillaumeFalourd/maven-cli-action@jdk8
           with:
-            maven-version: 3.6.1
-
-        - name: Execute tests
-          run: mvn verify
+            commands: 'clean verify'
