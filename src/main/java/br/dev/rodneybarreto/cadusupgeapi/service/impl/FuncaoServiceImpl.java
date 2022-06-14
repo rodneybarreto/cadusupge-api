@@ -1,19 +1,19 @@
 package br.dev.rodneybarreto.cadusupgeapi.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.FuncaoRes;
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.PapelRes;
 import br.dev.rodneybarreto.cadusupgeapi.model.Funcao;
 import br.dev.rodneybarreto.cadusupgeapi.repository.FuncaoRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.FuncaoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class FuncaoServiceImpl implements FuncaoService {
@@ -33,7 +33,7 @@ public class FuncaoServiceImpl implements FuncaoService {
 			
 			FuncaoRes funcaoRes = new FuncaoRes(f.getId().toString(), f.getNome());
 			
-			List<PapelRes> papeisRes = f.getPapeis().stream().map(PapelRes::new).collect(Collectors.toList());
+			List<PapelRes> papeisRes = f.getPapeis().stream().map(PapelRes::new).collect(toList());
 			funcaoRes.setPapeis(papeisRes);
 			
 			return funcaoRes;

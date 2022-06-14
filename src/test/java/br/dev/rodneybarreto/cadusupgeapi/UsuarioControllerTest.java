@@ -1,16 +1,9 @@
 package br.dev.rodneybarreto.cadusupgeapi;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-import java.util.List;
-
+import br.dev.rodneybarreto.cadusupgeapi.controller.UsuarioController;
+import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
+import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
+import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,10 +16,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import br.dev.rodneybarreto.cadusupgeapi.controller.UsuarioController;
-import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
-import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
-import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration

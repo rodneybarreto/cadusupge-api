@@ -1,16 +1,5 @@
 package br.dev.rodneybarreto.cadusupgeapi.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioReq;
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
 import br.dev.rodneybarreto.cadusupgeapi.helper.DateHelper;
@@ -20,6 +9,16 @@ import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.FuncaoRepository;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -36,14 +35,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<UsuarioRes> listaTodos() {
 		logger.info("Listando todos os uauários...");
 		List<Usuario> usuarios = usuarioRepository.findAll();
-		return usuarios.stream().map(UsuarioRes::new).collect(Collectors.toList());
+		return usuarios.stream().map(UsuarioRes::new).collect(toList());
 	}
 	
 	@Override
 	public List<UsuarioRes> listaTodos(String nome) {
 		logger.info("Listando todos os uauários por nome: {}", nome);
 		List<Usuario> usuarios = (List<Usuario>) usuarioRepository.listaTodosPorNome(nome);
-		return usuarios.stream().map(UsuarioRes::new).collect(Collectors.toList());
+		return usuarios.stream().map(UsuarioRes::new).collect(toList());
 	}
 
 	@Override

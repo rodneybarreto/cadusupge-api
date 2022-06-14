@@ -1,10 +1,10 @@
 package br.dev.rodneybarreto.cadusupgeapi.service;
 
-import java.util.List;
-
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioReq;
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
+
+import java.util.List;
 
 public interface UsuarioService {
 	

@@ -1,29 +1,19 @@
 package br.dev.rodneybarreto.cadusupgeapi.controller;
 
-import static org.springframework.util.ObjectUtils.isEmpty;
-
-import java.net.URI;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioReq;
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders="*")
@@ -35,7 +25,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 	
-	@GetMapping(produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(produces= APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<List<UsuarioRes>> listaTodos(@RequestParam(required=false) String nome) {
 		List<UsuarioRes> usuarios = null;
 		
@@ -52,7 +42,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarios);
 	}
 	
-	@GetMapping(value="/cpf/{cpf}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value="/cpf/{cpf}", produces= APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<UsuarioRes> buscaPorCpf(@PathVariable String cpf) {
 		
 		UsuarioRes usuario = service.buscaPorCpf(cpf);
@@ -64,7 +54,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuario);
 	}
 	
-	@GetMapping(value="/{id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value="/{id}", produces= APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<UsuarioRes> buscaPorId(@PathVariable Integer id) {
 	
 		UsuarioRes usuario = service.buscaPorId(id);
@@ -76,7 +66,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuario);
 	}
 	
-	@PostMapping(consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(consumes= APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> adiciona(@RequestBody UsuarioReq usuarioReq, UriComponentsBuilder uriBuilder) {
 		
 		Usuario usuario = service.adiciona(usuarioReq);
@@ -89,7 +79,7 @@ public class UsuarioController {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PutMapping(value="/{id}", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PutMapping(value="/{id}", consumes= APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> atualiza(@PathVariable Integer id, @RequestBody UsuarioReq usuarioReq) {
 
 		Usuario usuario = service.atualiza(id, usuarioReq);

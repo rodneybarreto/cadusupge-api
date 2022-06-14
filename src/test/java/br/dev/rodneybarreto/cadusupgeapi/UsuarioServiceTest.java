@@ -1,20 +1,5 @@
 package br.dev.rodneybarreto.cadusupgeapi;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import br.dev.rodneybarreto.cadusupgeapi.controller.dto.UsuarioRes;
 import br.dev.rodneybarreto.cadusupgeapi.helper.DateHelper;
 import br.dev.rodneybarreto.cadusupgeapi.model.Funcao;
@@ -22,6 +7,18 @@ import br.dev.rodneybarreto.cadusupgeapi.model.Genero;
 import br.dev.rodneybarreto.cadusupgeapi.model.Usuario;
 import br.dev.rodneybarreto.cadusupgeapi.repository.UsuarioRepository;
 import br.dev.rodneybarreto.cadusupgeapi.service.impl.UsuarioServiceImpl;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UsuarioServiceTest {
